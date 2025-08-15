@@ -19,5 +19,5 @@ export const headersToCheck: IPHeaders[] = [
 export const defaultOptions: Options = {
   headersOnly: false,
   checkHeaders: headersToCheck,
-  injectServer: (app) => app.server,
+  injectServer: () => null,
 }

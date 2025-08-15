@@ -1,48 +1,25 @@
-import { Elysia } from "@huyooo/elysia";
 import { getIP } from "./getip";
 import { defaultOptions } from "../constants";
 import { debug } from "./debug";
 import type { Options } from "../types";
 
 export const plugin = function ipPlugin(userOptions?: Partial<Options>) {
-  return function registerIpPlugin(app: Elysia) {
+  return function ipMiddleware(request: Request, context: any): Promise<Response> {
     const options: Options = {
       ...defaultOptions,
       ...userOptions,
     };
 
-    return app.use(
-      new Elysia({
-        name: "@huyooo/elysia-ip",
-      }).derive({ as: "global" }, function ip({ server: ctxServer, request }): { ip: string } {
-        serverIP: {
-          if (!options.headersOnly && globalThis.Bun) {
-            const server = options.injectServer(app) ?? ctxServer;
-            if (!server) {
-              debug("plugin: Elysia server is not initialized. Make sure to call Elyisa.listen()");
-              debug("plugin: use injectServer to inject Server instance");
-              break serverIP;
-            }
+    // 获取 IP 地址
+    let clientIP: string = "";
 
-            if (!server.requestIP) {
-              debug("plugin: server.requestIP is null");
-              debug("plugin: Please check server instace");
-              break serverIP;
-            }
+    // 从头部获取 IP 地址
+    clientIP = getIP(request.headers, options.checkHeaders) || "";
 
-            const socketAddress = server.requestIP(request);
-            debug(`plugin: socketAddress ${JSON.stringify(socketAddress)}`);
-            if (!socketAddress) {
-              debug("plugin: ip from server.requestIP return `null`");
-              break serverIP;
-            }
-            return { ip: socketAddress.address };
-          }
-        }
-        return {
-          ip: getIP(request.headers, options.checkHeaders) || "",
-        };
-      })
-    );
+    // 将 IP 添加到请求上下文中
+    context.ip = clientIP;
+
+    // 返回一个 resolved promise 表示继续执行
+    return Promise.resolve(new Response());
   };
 };

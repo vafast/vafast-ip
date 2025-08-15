@@ -1,50 +1,43 @@
-import { Elysia } from "@huyooo/elysia";
-import { defaultOptions, ip } from "../src/index";
+import { Server, json } from "tirne";
+import { ip } from "../src/index";
 
-import type { Server } from "bun";
+const ipMiddleware = ip();
 
-let server: Server | null;
+const aInstance = {
+  method: "GET",
+  path: "/a",
+  handler: () => {
+    console.log("A");
+    return json("a");
+  },
+  middleware: [ipMiddleware],
+};
 
-const getServer =
-  (mess: string = "default") =>
-  () => {
-    console.log(`[${mess}] get Server!`);
-    return server;
-  };
-
-defaultOptions.injectServer = getServer();
-
-const setup = new Elysia().use(ip());
-
-const aInstance = new Elysia().use(setup).get("/a", () => {
-  console.log("A");
-  return "a";
-});
-
-const bInstance = new Elysia()
-  .use(
-    ip({
-      injectServer: getServer("B"),
-    })
-  )
-  .get("/b", () => {
+const bInstance = {
+  method: "GET",
+  path: "/b",
+  handler: () => {
     console.log("B");
-    return "b";
-  });
+    return json("b");
+  },
+  middleware: [ipMiddleware],
+};
 
-const app = new Elysia()
-  .use(aInstance)
-  .use(bInstance)
-  .get("/", () => {
-    console.log("Hello");
-    return "hello";
-  })
-  .listen({}, ({ development, hostname, port }) => {
-    console.log(
-      `🦊 Elysia is running at ${hostname}:${port} ${
-        development ? "🚧 in development mode!🚧" : ""
-      }`
-    );
-  });
+const routes = [
+  aInstance,
+  bInstance,
+  {
+    method: "GET",
+    path: "/",
+    handler: () => {
+      console.log("Hello");
+      return json("hello");
+    },
+  },
+];
 
-server = app.server;
+const app = new Server(routes);
+
+export default {
+  fetch: (req: Request) => app.fetch(req),
+};

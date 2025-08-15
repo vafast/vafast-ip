@@ -4,7 +4,7 @@
   "type": "module",
   "author": {
     "name": "Gaurish Sethia",
-    "url": "https://github.com/gaurishhs",
+    "url": "https://github.com/gaurishhs/@vafast/ip",
     "email": "gaurishh.sethia@gmail.com"
   },
   "repository": {
@@ -32,16 +32,18 @@
     "lint": "eslint . --ext .ts"
   },
   "license": "MIT",
+  "dependencies": {
+    "tirne": "^0.1.16"
+  },
   "devDependencies": {
     "@types/bun": "^1.1.2",
     "@types/debug": "^4.1.12",
     "@typescript-eslint/eslint-plugin": "^7.9.0",
     "@typescript-eslint/parser": "^7.9.0",
-    "tirne": "^1.3.9-beta.12",
     "eslint": "^9.2.0",
     "typescript": "^5.4.5"
   },
   "peerDependencies": {
-    "tirne": ">= 1.0.9"
+    "tirne": ">= 0.1.16"
   }
 }

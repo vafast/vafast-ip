@@ -1,44 +1,40 @@
-import { Elysia } from "@huyooo/elysia";
-import { defaultOptions, ip } from "@huyooo/elysia-ip";
-import bearer from "@elysiajs/bearer";
+import { Server, json } from "tirne";
+import { ip } from "../src/index";
 
-import type { Server } from "bun";
+const ipMiddleware = ip();
 
-let server: Server | null;
+const aInstance = {
+  method: "GET",
+  path: "/a",
+  handler: () => {
+    return json("a");
+  },
+  middleware: [ipMiddleware],
+};
 
-defaultOptions.injectServer = () => server; // use defaultOptions as global setting
-const setup = new Elysia({
-  /**
-   * declare name for every instance
-   * readmore :
-   * https://elysiajs.com/essential/plugin.html#plugin-deduplication
-   * https://elysiajs.com/essential/context.html#affix
-   */
-  name: "setup", //
-})
-  .use(ip())
-  .use(bearer());
+const bInstance = {
+  method: "GET",
+  path: "/b",
+  handler: () => {
+    return json("b");
+  },
+  middleware: [ipMiddleware],
+};
 
-const aInstance = new Elysia({
-  name: "routeA",
-})
-  .use(setup)
-  .get("/a", ({ bearer, ip }) => "a");
+const routes = [
+  aInstance,
+  bInstance,
+  {
+    method: "GET",
+    path: "/",
+    handler: () => {
+      return json("hello");
+    },
+  },
+];
 
-const bInstance = new Elysia({
-  name: "routeB",
-})
-  .use(setup)
-  .get("/b", ({ bearer, ip }) => "b");
+const app = new Server(routes);
 
-const app = new Elysia({
-  name: "mainApp",
-})
-  .use(aInstance)
-  .use(bInstance)
-  .get("/", () => "hello")
-  .listen(3000, () => {
-    console.log("🦊 Swagger is active at: http://localhost:3000/swagger");
-  });
-
-server = app.server;
+export default {
+  fetch: (req: Request) => app.fetch(req),
+};

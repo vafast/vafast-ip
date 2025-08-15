@@ -1,5 +1,4 @@
-import type { Server } from "@huyooo/elysia/universal";
-import type Elysia from "@huyooo/elysia";
+import type { Server } from "tirne";
 
 export type IPHeaders =
   | "x-real-ip"
@@ -16,7 +15,7 @@ export type IPHeaders =
   | "cf-pseudo-ipv4"
   | (string & {});
 
-export type InjectServer = (app: Elysia) => Server | null;
+export type InjectServer = (app: any) => any | null;
 
 export interface Options {
   /**

@@ -1,4 +1,4 @@
-import type { Server } from "tirne";
+import type { Server } from "vafast";
 
 export type IPHeaders =
   | "x-real-ip"

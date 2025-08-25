@@ -1,4 +1,4 @@
-import { Server, json } from "tirne";
+import { Server, createRouteHandler } from "vafast";
 import { ip } from "../src";
 
 const ipMiddleware = ip();
@@ -7,9 +7,9 @@ const routes = [
   {
     method: "GET",
     path: "/",
-    handler: (request: Request, context: any) => {
-      return json({ hello: context.ip });
-    },
+    handler: createRouteHandler((request: Request) => {
+      return { hello: (request as any).ip };
+    }),
     middleware: [ipMiddleware],
   },
 ];

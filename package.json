@@ -33,7 +33,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "tirne": "^0.1.16"
+    "vafast": "^0.1.12"
   },
   "devDependencies": {
     "@types/bun": "^1.1.2",
@@ -44,6 +44,6 @@
     "typescript": "^5.4.5"
   },
   "peerDependencies": {
-    "tirne": ">= 0.1.16"
+    "vafast": ">= 0.1.12"
   }
 }

@@ -29,11 +29,12 @@
   "scripts": {
     "dev": "NODE_DEBUG=* bun run --hot example/basic.ts",
     "build": "rm -rf dist && tsc --project tsconfig.esm.json",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts",
+    "test": "npx vitest run"
   },
   "license": "MIT",
   "dependencies": {
-    "vafast": "^0.1.12"
+    "vafast": "^0.3.10"
   },
   "devDependencies": {
     "@types/bun": "^1.1.2",
@@ -41,9 +42,10 @@
     "@typescript-eslint/eslint-plugin": "^7.9.0",
     "@typescript-eslint/parser": "^7.9.0",
     "eslint": "^9.2.0",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "vitest": "^4.0.16"
   },
   "peerDependencies": {
-    "vafast": ">= 0.1.12"
+    "vafast": "^0.3.10"
   }
 }

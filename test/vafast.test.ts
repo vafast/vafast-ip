@@ -1,5 +1,6 @@
-import { Server, createRouteHandler } from "vafast";
+import { Server, createHandler, json } from "vafast";
 import { ip } from "../src/index";
+import { describe, expect, it } from "vitest";
 
 describe("Vafast IP Plugin", () => {
   it("should extract IP from X-Real-IP header", async () => {
@@ -9,8 +10,8 @@ describe("Vafast IP Plugin", () => {
       {
         method: "GET",
         path: "/",
-        handler: createRouteHandler(({ req }: { req: Request }) => {
-          return { ip: (req as any).ip };
+        handler: createHandler(({ req }: { req: Request }) => {
+          return json({ ip: (req as any).ip });
         }),
         middleware: [ipMiddleware],
       },
@@ -35,8 +36,8 @@ describe("Vafast IP Plugin", () => {
       {
         method: "GET",
         path: "/",
-        handler: createRouteHandler(({ req }: { req: Request }) => {
-          return { ip: (req as any).ip };
+        handler: createHandler(({ req }: { req: Request }) => {
+          return json({ ip: (req as any).ip });
         }),
         middleware: [ipMiddleware],
       },
@@ -62,8 +63,8 @@ describe("Vafast IP Plugin", () => {
       {
         method: "GET",
         path: "/",
-        handler: createRouteHandler(({ req }: { req: Request }) => {
-          return { ip: (req as any).ip };
+        handler: createHandler(({ req }: { req: Request }) => {
+          return json({ ip: (req as any).ip });
         }),
         middleware: [ipMiddleware],
       },
@@ -90,8 +91,8 @@ describe("Vafast IP Plugin", () => {
       {
         method: "GET",
         path: "/",
-        handler: createRouteHandler(({ req }: { req: Request }) => {
-          return { ip: (req as any).ip };
+        handler: createHandler(({ req }: { req: Request }) => {
+          return json({ ip: (req as any).ip });
         }),
         middleware: [ipMiddleware],
       },
@@ -118,8 +119,8 @@ describe("Vafast IP Plugin", () => {
       {
         method: "GET",
         path: "/",
-        handler: createRouteHandler(({ req }: { req: Request }) => {
-          return { ip: (req as any).ip };
+        handler: createHandler(({ req }: { req: Request }) => {
+          return json({ ip: (req as any).ip });
         }),
         middleware: [ipMiddleware],
       },
@@ -139,16 +140,16 @@ describe("Vafast IP Plugin", () => {
       {
         method: "GET",
         path: "/a",
-        handler: createRouteHandler(({ req }: { req: Request }) => {
-          return { route: "a", ip: (req as any).ip };
+        handler: createHandler(({ req }: { req: Request }) => {
+          return json({ route: "a", ip: (req as any).ip });
         }),
         middleware: [ipMiddleware],
       },
       {
         method: "GET",
         path: "/b",
-        handler: createRouteHandler(({ req }: { req: Request }) => {
-          return { route: "b", ip: (req as any).ip };
+        handler: createHandler(({ req }: { req: Request }) => {
+          return json({ route: "b", ip: (req as any).ip });
         }),
         middleware: [ipMiddleware],
       },

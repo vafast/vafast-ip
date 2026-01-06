@@ -175,6 +175,5 @@ dist
 .DS_Store
 
 #lock file
-package-lock.json
 pnpm-lock.yaml
 yaml.lock

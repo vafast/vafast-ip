@@ -1,6 +1,7 @@
 {
   "name": "@vafast/ip",
   "version": "0.0.4",
+  "description": "Get client IP from request headers for Vafast framework",
   "type": "module",
   "author": {
     "name": "Gaurish Sethia",
@@ -11,34 +12,41 @@
     "type": "git",
     "url": "https://github.com/gaurishhs/@vafast/ip"
   },
-  "main": "./dist/index.js",
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
   "exports": {
-    "require": "./dist/index.js",
-    "import": "./dist/index.js",
-    "node": "./dist/index.js",
-    "default": "./dist/index.js"
+    ".": {
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs",
+      "default": "./dist/index.mjs"
+    }
   },
-  "types": "./dist/index.d.ts",
   "bugs": "https://github.com/gaurishhs/@vafast/ip/issues",
   "homepage": "https://github.com/gaurishhs/@vafast/ip",
   "keywords": [
     "@vafast",
     "typescript",
-    "ip"
+    "ip",
+    "client-ip"
   ],
   "scripts": {
-    "dev": "NODE_DEBUG=* bun run --hot example/basic.ts",
-    "build": "rm -rf dist && tsc --project tsconfig.esm.json",
-    "test": "npx vitest run"
+    "build": "tsdown",
+    "dev": "npx tsx watch example/basic.ts",
+    "test": "npx vitest run",
+    "release": "npm run build && npm run test && npx bumpp && npm publish --access=public"
   },
   "license": "MIT",
-  "dependencies": {
-    "vafast": "^0.5.1"
-  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "devDependencies": {
-    "@types/node": "^24.0.0",
-    "@types/debug": "^4.1.12",
+    "@types/node": "^22.0.0",
+    "tsdown": "^0.19.0-beta.4",
     "typescript": "^5.4.5",
+    "vafast": "^0.5.1",
     "vitest": "^4.0.16"
   },
   "peerDependencies": {

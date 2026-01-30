@@ -1,6 +1,6 @@
 {
   "name": "@vafast/ip",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "Get client IP from request headers for Vafast framework",
   "type": "module",
   "author": {

@@ -1,5 +1,5 @@
 import { headersToCheck } from "../constants";
-import { IPHeaders } from "../types";
+import type { IPHeaders } from "../types";
 import { debug } from "./debug";
 
 export const getIP = (

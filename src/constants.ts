@@ -1,4 +1,4 @@
-import { Options, IPHeaders } from "./types"
+import type { Options, IPHeaders } from "./types"
 
 export const headersToCheck: IPHeaders[] = [
   "x-real-ip", // Nginx proxy/FastCGI

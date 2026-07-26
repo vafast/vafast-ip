@@ -11,10 +11,10 @@ describe("Vafast IP Plugin", () => {
         defineRoute({
           method: "GET",
           path: "/",
-          handler: ({ req }) => json({ ip: (req as any).ip }),
+          handler: ({ ip: clientIp }) => json({ ip: clientIp }),
           middleware: [ipMiddleware],
-        })
-      ])
+        }),
+      ]),
     );
 
     const req = new Request("http://localhost/", {
@@ -37,10 +37,10 @@ describe("Vafast IP Plugin", () => {
         defineRoute({
           method: "GET",
           path: "/",
-          handler: ({ req }) => json({ ip: (req as any).ip }),
+          handler: ({ ip: clientIp }) => json({ ip: clientIp }),
           middleware: [ipMiddleware],
-        })
-      ])
+        }),
+      ]),
     );
 
     const req = new Request("http://localhost/", {
@@ -64,10 +64,10 @@ describe("Vafast IP Plugin", () => {
         defineRoute({
           method: "GET",
           path: "/",
-          handler: ({ req }) => json({ ip: (req as any).ip }),
+          handler: ({ ip: clientIp }) => json({ ip: clientIp }),
           middleware: [ipMiddleware],
-        })
-      ])
+        }),
+      ]),
     );
 
     const req = new Request("http://localhost/", {
@@ -92,10 +92,10 @@ describe("Vafast IP Plugin", () => {
         defineRoute({
           method: "GET",
           path: "/",
-          handler: ({ req }) => json({ ip: (req as any).ip }),
+          handler: ({ ip: clientIp }) => json({ ip: clientIp }),
           middleware: [ipMiddleware],
-        })
-      ])
+        }),
+      ]),
     );
 
     const req = new Request("http://localhost/", {
@@ -120,10 +120,10 @@ describe("Vafast IP Plugin", () => {
         defineRoute({
           method: "GET",
           path: "/",
-          handler: ({ req }) => json({ ip: (req as any).ip }),
+          handler: ({ ip: clientIp }) => json({ ip: clientIp }),
           middleware: [ipMiddleware],
-        })
-      ])
+        }),
+      ]),
     );
 
     const req = new Request("http://localhost/");
@@ -141,16 +141,16 @@ describe("Vafast IP Plugin", () => {
         defineRoute({
           method: "GET",
           path: "/a",
-          handler: ({ req }) => json({ route: "a", ip: (req as any).ip }),
+          handler: ({ ip: clientIp }) => json({ route: "a", ip: clientIp }),
           middleware: [ipMiddleware],
         }),
         defineRoute({
           method: "GET",
           path: "/b",
-          handler: ({ req }) => json({ route: "b", ip: (req as any).ip }),
+          handler: ({ ip: clientIp }) => json({ route: "b", ip: clientIp }),
           middleware: [ipMiddleware],
-        })
-      ])
+        }),
+      ]),
     );
 
     const req = new Request("http://localhost/a", {
